@@ -1,7 +1,7 @@
 import React from 'react'
 import TodoList from './TodoList';
 import Form from './Form';
-import Todo from './Todo';
+
 
 
 export default class App extends React.Component {
@@ -33,10 +33,6 @@ addTask = (event, task) => {
   this.setState({ ...this.state, todoList: [ ...this.state.todoList, newTask ] })
 }
 
-toggleFinished = () => {
-
-}
-
 clearCompleted = () => {
 
 }
@@ -46,19 +42,9 @@ clearCompleted = () => {
     const { todos } = this.state;
     return (
       <div>
-        <ul>
-          {todos.map(todo => {
-            return (
-            <Todo todo={todo} />
-            )
-          })
-          }
-        </ul>
-        
-        <form>
-          <input/>
-          <button>Add</button>
-        </form>
+        <TodoList todos={todos} />
+
+        <Form todos={todos} />
 
         <button>Clear</button>
       </div>
