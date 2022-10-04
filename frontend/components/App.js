@@ -1,6 +1,7 @@
 import React from 'react'
 import TodoList from './TodoList';
 import Form from './Form';
+import Todo from './Todo';
 
 
 export default class App extends React.Component {
@@ -14,7 +15,7 @@ export default class App extends React.Component {
         completed: false,
       },
       {
-        task: 'finish mod 2',
+        task: 'Finish mod 2',
         id: 54321,
         completed: false,
       }
@@ -48,16 +49,18 @@ clearCompleted = () => {
         <ul>
           {todos.map(todo => {
             return (
-            <li>{todo.task} {todo.completed ? <span>Completed</span> : <span></span>} </li>
+            <Todo todo={todo} />
             )
           })
           }
         </ul>
+        
         <form>
-          <button>Add</button>
           <input/>
-          <button>Clear</button>
+          <button>Add</button>
         </form>
+
+        <button>Clear</button>
       </div>
     )
   }
