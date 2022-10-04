@@ -1,6 +1,7 @@
 import React from 'react'
 import TodoList from './TodoList';
 import Form from './Form';
+// import Todo from './Todo';
 
 
 
@@ -23,18 +24,39 @@ export default class App extends React.Component {
   }
   }
   
-addTask = (event, task) => {
-  event.preventDefault();
-  const newTask = {
+handleAdd = (task) => {
+
+    const newTask = {
     task: task,
     id: Date.now(),
     completed: false,
   }
-  this.setState({ ...this.state, todoList: [ ...this.state.todoList, newTask ] })
+  this.setState({ 
+    ...this.state, 
+    todos: [ ...this.state.todos, newTask ] })
+  }
+
+toggle = (clickedTask) => {
+  this.setState({
+    ...this.state,
+    todos: this.state.todos.map( todo => {
+      if (todo.id === clickedTask) {
+        return {
+          ...todo,
+          completed: !todo.completed
+        }
+      }
+      return todo;
+    })
+  })
 }
-
 clearCompleted = () => {
-
+  this.setState({
+    ...this.state,
+    todos: this.state.todos.filter(todo => {
+      return (todo.completed === false)
+    })
+  })
 }
 
 
@@ -42,11 +64,11 @@ clearCompleted = () => {
     const { todos } = this.state;
     return (
       <div>
-        <TodoList todos={todos} />
+        <TodoList todos={todos} toggle={this.toggle} />
 
-        <Form todos={todos} />
+        <Form todos={todos} handleAdd={this.handleAdd} />
 
-        <button>Clear</button>
+        <button onClick={this.clearCompleted}>Clear</button>
       </div>
     )
   }
